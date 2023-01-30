@@ -1,0 +1,347 @@
+{
+	"info": {
+		"_postman_id": "7eb863a8-c395-4dea-8ff3-792289f6852a",
+		"name": "Param_HTTP_Request",
+		"description": "A collection of our RESTful controller layer in the Spring Boot project. Every HTTP depicts what action is performed on its endpoint. The following actions were performed - GET and POST, and using @PathVariable, @RequestBody, and @RequestParam, we transferred data to our API. We also wrote our custom response codes for every validation check using RequestEntity to return custom status codes.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25408559"
+	},
+	"item": [
+		{
+			"name": "Get all words",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/dict",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"dict"
+					]
+				},
+				"description": "**GET** request to return all the words in the dictionary\n\n200 (OK) - If found"
+			},
+			"response": []
+		},
+		{
+			"name": "Get a word @PathVar (found)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/dict/apple",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"dict",
+						"apple"
+					]
+				},
+				"description": "**GET** request to return the meaning of a word passed as a resource\n\n200 (OK) - If found"
+			},
+			"response": []
+		},
+		{
+			"name": "Get a word @PathVar (invalid)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/dict/dubem",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"dict",
+						"dubem"
+					]
+				},
+				"description": "**GET** request to return the meaning of a word passed as a resource (word not valid)\n\n404 (NOT_FOUND) - If not found"
+			},
+			"response": []
+		},
+		{
+			"name": "Add wordpair @ReqBody (success)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"word\": \"Chisom\",\r\n    \"definition\":\"God is with me\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/dict/body",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"dict",
+						"body"
+					]
+				},
+				"description": "**POST** request to add a given valid word and its meaning to the dictionary using @RequestBody\n\n201 (CREATED) - If success created"
+			},
+			"response": []
+		},
+		{
+			"name": "Add wordpair @ReqBody (fail - empty body)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"word\": \"\",\r\n    \"definition\": \"nna\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/dict/body",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"dict",
+						"body"
+					]
+				},
+				"description": "**POST** request to add a given word and its meaning to the dictionary using @RequestBody (empty word)\n\n400 (BAD_REQUEST) - If not correctly formatted"
+			},
+			"response": []
+		},
+		{
+			"name": "Add wordpair @ReqBody (fail - word exist)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"word\":\"Apple\",\r\n    \"definition\":\"fruit\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/dict/body",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"dict",
+						"body"
+					]
+				},
+				"description": "**POST** request to add a given valid word and its meaning to the dictionary using @RequestBody (word exists)\n\n400 (BAD_REQUEST) - If not correctly formatted"
+			},
+			"response": []
+		},
+		{
+			"name": "Add wordpair @ReqParam (success)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/dict/param?word=Afang&definition=Soup made with spinach and red oil",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"dict",
+						"param"
+					],
+					"query": [
+						{
+							"key": "word",
+							"value": "Afang"
+						},
+						{
+							"key": "definition",
+							"value": "Soup made with spinach and red oil"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add wordpair @RequestParam (fail - empty word)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/dict/param?word=&definition=Soup ",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"dict",
+						"param"
+					],
+					"query": [
+						{
+							"key": "word",
+							"value": ""
+						},
+						{
+							"key": "definition",
+							"value": "Soup "
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add wordpair @ReqParam (fail - word exist)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/dict/param?word=Apple&definition=hello fruit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"dict",
+						"param"
+					],
+					"query": [
+						{
+							"key": "word",
+							"value": "Apple"
+						},
+						{
+							"key": "definition",
+							"value": "hello fruit"
+						}
+					]
+				},
+				"description": "**POST** request to add a given valid word and its meaning to the dictionary using @RequestParam (word exists)\n\n400 (BAD_REQUEST) - If not correctly formatted"
+			},
+			"response": []
+		},
+		{
+			"name": "Add wordpair @PathVar (success)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/dict/path/gp/water tank",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"dict",
+						"path",
+						"gp",
+						"water tank"
+					]
+				},
+				"description": "**POST** request to add a given valid word and its meaning to the dictionary using @PathVariable\n\n201 (CREATED) - If created"
+			},
+			"response": []
+		},
+		{
+			"name": "Add wordpair @PathVar (fail - empty path)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/dict/path/\"\"/sing",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"dict",
+						"path",
+						"\"\"",
+						"sing"
+					]
+				},
+				"description": "**POST** request to add a given valid word and its meaning to the dictionary using @PathVariable (empty variable)\n\n400 (BAD_REQUEST) - If not correctly formatted"
+			},
+			"response": []
+		},
+		{
+			"name": "add wordpair @PathVar (fail - word exist)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/dict/path/apple/sing",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"dict",
+						"path",
+						"apple",
+						"sing"
+					]
+				},
+				"description": "**POST** request to add a given valid word and its meaning to the dictionary using @PathVariable (word exists)\n\n400 (BAD_REQUEST) - If not correctly formatted"
+			},
+			"response": []
+		}
+	]
+}
