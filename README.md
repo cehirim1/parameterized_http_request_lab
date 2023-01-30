@@ -1,5 +1,5 @@
-In this lab we will practice writing a controller layer in a Spring Boot project. We practised writing web apis 
-and getting data into the APIs to a user using @RequestBody, @RequestParam and @PathVariable. 
+In this lab we practiced writing a RESTful controller layer in a Spring Boot project. We wrote web apis 
+and sent data into the APIs using @RequestBody, @RequestParam and @PathVariable. 
 
 ### Link to API Documentation ###
 ***
